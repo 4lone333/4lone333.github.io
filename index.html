@@ -116,11 +116,11 @@ input {
 
 <div id="myDIV" class="header">
   <h2 style="margin:5px">Mi lista de tareas</h2>
-  <input type="text" id="myInput">
+  <input type="text" id="miLista">
   <span onclick="newElement()" class="addBtn">Añadir</span>
 </div>
 
-<ul id="myUL">
+<ul id="misTareas">
 
 </ul>
 
@@ -154,15 +154,15 @@ list.addEventListener('click', function(ev) {
 
 function newElement() {
   var li = document.createElement("li");
-  var inputValue = document.getElementById("myInput").value;
+  var inputValue = document.getElementById("miLista").value;
   var t = document.createTextNode(inputValue);
   li.appendChild(t);
   if (inputValue === '') {
     alert("El campo no puede estar vacío");
   } else {
-    document.getElementById("myUL").appendChild(li);
+    document.getElementById("misTareas").appendChild(li);
   }
-  document.getElementById("myInput").value = "";
+  document.getElementById("miLista").value = "";
 
   var span = document.createElement("SPAN");
   var txt = document.createTextNode("\u00D7");
