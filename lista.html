@@ -23,7 +23,7 @@ ul li {
   padding: 12px;
   margin: auto 100px;
   list-style-type: none;
-  background: rgb(143, 143, 143);
+  background: rgb(152, 255, 161);
   color: rgb(0, 0, 0);
   font-size: 18px;
   transition: 0.2s;
@@ -31,15 +31,15 @@ ul li {
 }
 
 ul li:nth-child(odd) {
-  background: #f9f9f9;
+  background: #ffffff;
 }
 
 ul li:hover {
-  background: #ddd;
+  background: #f0ffd8;
 }
 
 ul li.checked {
-  background: rgb(0, 0, 0);
+  background: rgb(103, 173, 109);
   color: #fff;
   text-decoration: line-through;
 }
@@ -65,7 +65,7 @@ ul li.checked::before {
 }
 
 .close:hover {
-  background-color: #6d6d6d;
+  background-color: #dfffac;
   color: white;
 }
 
@@ -97,8 +97,8 @@ input {
 .addBtn {
   padding: 10px;
   width: 25%;
-  background: #000000;
-  color: rgb(255, 255, 255);
+  background: #caf1b4;
+  color: rgb(0, 0, 0);
   float: left;
   text-align: center;
   font-size: 16px;
@@ -112,10 +112,10 @@ input {
 }
 </style>
 </head>
-<body>
+<body style="background-color: rgb(243, 232, 171);">
 
 <div id="myDIV" class="header">
-  <h2 style="margin:5px">Mi lista de tareas</h2>
+  <h2 style="margin:5px; font-size: 50px;">Mi lista de tareas</h2>
   <input type="text" id="miLista">
   <span onclick="newElement()" class="addBtn">Añadir</span>
 </div>
@@ -125,59 +125,106 @@ input {
 </ul>
 
 <script>
-
-var myNodelist = document.getElementsByTagName("LI");
-var i;
-for (i = 0; i < myNodelist.length; i++) {
-  var span = document.createElement("SPAN");
-  var txt = document.createTextNode("\u00D7");
-  span.className = "close";
-  span.appendChild(txt);
-  myNodelist[i].appendChild(span);
-}
-
-var close = document.getElementsByClassName("close");
-var i;
-for (i = 0; i < close.length; i++) {
-  close[i].onclick = function() {
-    var div = this.parentElement;
-    div.style.display = "none";
+  var myNodelist = document.getElementsByTagName("LI");
+  var i;
+  
+  // Add close buttons to existing tasks
+  for (i = 0; i < myNodelist.length; i++) {
+    var span = document.createElement("SPAN");
+    var txt = document.createTextNode("\u00D7");
+    span.className = "close";
+    span.appendChild(txt);
+    myNodelist[i].appendChild(span);
   }
-}
-
-var list = document.querySelector('ul');
-list.addEventListener('click', function(ev) {
-  if (ev.target.tagName === 'LI') {
-    ev.target.classList.toggle('checked');
-  }
-}, false);
-
-function newElement() {
-  var li = document.createElement("li");
-  var inputValue = document.getElementById("miLista").value;
-  var t = document.createTextNode(inputValue);
-  li.appendChild(t);
-  if (inputValue === '') {
-    alert("El campo no puede estar vacío");
-  } else {
-    document.getElementById("misTareas").appendChild(li);
-  }
-  document.getElementById("miLista").value = "";
-
-  var span = document.createElement("SPAN");
-  var txt = document.createTextNode("\u00D7");
-  span.className = "close";
-  span.appendChild(txt);
-  li.appendChild(span);
-
+  
+  var close = document.getElementsByClassName("close");
+  var i;
   for (i = 0; i < close.length; i++) {
     close[i].onclick = function() {
       var div = this.parentElement;
       div.style.display = "none";
     }
   }
-}
-</script>
+  
+  var list = document.querySelector('ul');
+  list.addEventListener('click', function(ev) {
+    if (ev.target.tagName === 'LI') {
+      ev.target.classList.toggle('checked');
+    }
+  }, false);
+  
+  var currentPage = 1;
+  var tasksPerPage = 5;
+  
+  function displayTasks(page) {
+    var tasks = document.getElementsByTagName("LI");
+    for (var i = 0; i < tasks.length; i++) {
+      tasks[i].style.display = "none";
+    }
+    
+    var startIndex = (page - 1) * tasksPerPage;
+    var endIndex = startIndex + tasksPerPage;
+    
+    for (var i = startIndex; i < endIndex; i++) {
+      if (tasks[i]) {
+        tasks[i].style.display = "block";
+      }
+    }
+  }
+
+  /* <div>
+  <button onclick="goToPage(currentPage - 1)">Previous</button>
+  <button onclick="goToPage(currentPage + 1)">Next</button>
+</div> */
+
+  
+  displayTasks(currentPage);
+  
+  function newElement() {
+    var li = document.createElement("li");
+    var inputValue = document.getElementById("miLista").value;
+    var t = document.createTextNode(inputValue);
+    li.appendChild(t);
+    
+    if (inputValue === '') {
+      alert("El campo no puede estar vacío");
+    } else {
+      document.getElementById("misTareas").appendChild(li);
+    }
+    
+    document.getElementById("miLista").value = "";
+  
+    var span = document.createElement("SPAN");
+    var txt = document.createTextNode("\u00D7");
+    span.className = "close";
+    span.appendChild(txt);
+    li.appendChild(span);
+    
+    close[close.length - 1].onclick = function() {
+      var div = this.parentElement;
+      div.style.display = "none";
+    }
+  
+    // Check if a new page is needed
+    var totalTasks = document.getElementsByTagName("LI").length;
+    var totalPages = Math.ceil(totalTasks / tasksPerPage);
+    
+    if (totalTasks > tasksPerPage * currentPage && totalTasks <= tasksPerPage * (currentPage + 1)) {
+      currentPage++;
+      displayTasks(currentPage);
+    }
+  }
+  
+  function goToPage(page) {
+    if (page >= 1 && page <= Math.ceil(document.getElementsByTagName("LI").length / tasksPerPage)) {
+      currentPage = page;
+      displayTasks(currentPage);
+    }
+  }
+  
+  </script>
+  
+  
 
 </body>
 </html>
