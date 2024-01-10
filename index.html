@@ -8,16 +8,17 @@
   <!-- Utiliza la versión no modular de Firebase -->
   <script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js"></script>
-
+</head>
+<body>
   <script>
     const firebaseConfig = {
-        apiKey: "AIzaSyCPxkLKu__ujlzVrcgGjt4ObKVpdf-zlrA",
-        authDomain: "listadetareas-b4a95.firebaseapp.com",
-        projectId: "listadetareas-b4a95",
-        storageBucket: "listadetareas-b4a95.appspot.com",
-        messagingSenderId: "442895678716",
-        appId: "1:442895678716:web:242b6e57e664611740ab79",
-        measurementId: "G-DD5X82G3LG"
+      apiKey: "AIzaSyCPxkLKu__ujlzVrcgGjt4ObKVpdf-zlrA",
+      authDomain: "listadetareas-b4a95.firebaseapp.com",
+      projectId: "listadetareas-b4a95",
+      storageBucket: "listadetareas-b4a95.appspot.com",
+      messagingSenderId: "442895678716",
+      appId: "1:442895678716:web:242b6e57e664611740ab79",
+      measurementId: "G-DD5X82G3LG"
     };
 
     // Inicializa Firebase
@@ -27,28 +28,26 @@
     const auth = firebase.auth();
 
     function loginWithGoogle() {
-        // Configura el proveedor de autenticación de Google
-        const googleProvider = new firebase.auth.GoogleAuthProvider();
+      // Configura el proveedor de autenticación de Google
+      const googleProvider = new firebase.auth.GoogleAuthProvider();
 
-        // Inicia sesión con Google
-        auth.signInWithPopup(googleProvider)
-            .then((userCredential) => {
-                console.log("Inicio de sesión exitoso con Google");
-                window.location.href = 'lista.html';
-            })
-            .catch((error) => {
-                console.log("Error al iniciar sesión con Google");
-                var errorMessage = error.message;
-                alert(errorMessage);
-            });
+      // Inicia sesión con Google
+      auth.signInWithPopup(googleProvider)
+        .then((userCredential) => {
+          console.log("Inicio de sesión exitoso con Google");
+          window.location.href = 'lista.html';
+        })
+        .catch((error) => {
+          console.log("Error al iniciar sesión con Google");
+          var errorMessage = error.message;
+          alert(errorMessage);
+        });
     }
-</script>
+  </script>
 
-</head>
-<body>
   <div class="login-container">
     <p style="position: 0; margin-top: 100px; margin-bottom: -50px; font-size: 50px; text-align: center; 
-    background-color: rgb(255, 0, 179); color: white; padding: 50px;">Iniciar Sesión</p>
+    background-color: black; color: white; padding: 50px;">Iniciar Sesión</p>
      <p style="position: 1; text-align: center; margin-top: 100px; font-size: larger;">
       <button type="button" onclick="loginWithGoogle()">Iniciar Sesión con Google</button>
      </p> 
