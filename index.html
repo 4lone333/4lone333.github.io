@@ -10,6 +10,13 @@
   <script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js"></script>
 
   <script>
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "firebase/app";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
     const firebaseConfig = {
       apiKey: "AIzaSyCPxkLKu__ujlzVrcgGjt4ObKVpdf-zlrA",
       authDomain: "listadetareas-b4a95.firebaseapp.com",
@@ -20,8 +27,8 @@
       measurementId: "G-DD5X82G3LG"
     };
 
-    // Inicializa Firebase
-    firebase.initializeApp(firebaseConfig);
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
 
     // Obtiene la referencia al servicio de autenticación
     const auth = firebase.auth();
@@ -47,7 +54,7 @@
 <body>
   <div class="login-container">
     <p style="position: 0; margin-top: 100px; margin-bottom: -50px; font-size: 50px; text-align: center; 
-    background-color: rgb(255, 0, 0); color: white; padding: 50px;">Iniciar Sesión</p>
+    background-color: rgb(0, 255, 170); color: white; padding: 50px;">Iniciar Sesión</p>
      <p style="position: 1; text-align: center; margin-top: 100px; font-size: larger;">
       <button type="button" onclick="loginWithGoogle()">Iniciar Sesión con Google</button>
      </p> 
